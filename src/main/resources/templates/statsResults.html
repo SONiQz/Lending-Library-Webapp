@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Statistics Results</title>
+    <title>Statistics Results</title>
+    <!-- added for hding values to be pagenated -->
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<h1>Statistics Results for the Given Date Range</h1>
+<div>
+    <h2>Number of Users by Date:</h2>
+    <p th:text="${userSumDate}">[Number Users by Date]</p>
+</div>
+<div>
+    <h2>Total Number of Users:</h2>
+    <p th:text="${sumUsers}">[Total Users]</p>
+</div>
+<h2>Number of Books added by Date Range</h2>
+    <p th:text="${countBooksByRange}">[Books Added]</p>
+</div>
+<div>
+    <h2>Average Loan Frequency:</h2>
+    <p th:text="${avgLoanFrequency}">[Average Frequency]</p>
+</div>
+<div>
+    <h2>Average Loan Duration:</h2>
+    <p th:text="${avgLoanDuration}">[Average Duration]</p>
+</div>
+
+<h2>Most Frequent Users</h2>
+<table>
+    <thead>
+        <tr>
+        <th>User ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Frequency</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${frequentUsers}">
+        <td th:text="${user.userId}">User ID</td>
+        <td th:text="${user.firstName}">First Name</td>
+        <td th:text="${user.lastName}">Last Name</td>
+        <td th:text="${user.frequency}">Frequency</td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <h2>Books Edited by Date Range</h2>
+    <h3>Quantity of Added Books</h3>
+    <p th:text="${addedBooks}">[Quantity of Added Books]</p>
+    </br>
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Book Title</th>
+            <th>Author</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody id="editedbooks">
+        <tr th:each="booksEditedByRange : ${booksEditedByRange}">
+            <td th:text="${booksEditedByRange.barcode}">1234567890</td>
+            <td th:text="${booksEditedByRange.title}">Some Book Title</td>
+            <td th:text="${booksEditedByRange.author}">Author Name</td>
+            <td th:text="${booksEditedByRange.timestamp}">100</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <button id="prevPage" onclick="prevPage()">Previous</button>
+    <button id="nextPage" onclick="nextPage()">Next</button>
+</div>
+<div>
+    <h2>Total Fees Generated:</h2>
+    <p th:text="${feesForDateRange}">[Total Fees]</p>
+</div>
+<div>
+<h2>Top 10 Books</h2>
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Barcode</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Loans Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book, stat : ${books}">
+        <td th:text="${stat.index + 1}">1</td>
+        <td th:text="${book.barcode}">1234567890</td>
+        <td th:text="${book.title}">Some Book Title</td>
+        <td th:text="${book.author}">Author Name</td>
+        <td th:text="${book.bookCount}">100</td>
+    </tr>
+    </tbody>
+</thead>
+</table>
+</div>
+<div>
+<h2>Total Number of Books</h2>
+<table>
+    <thead>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${bookCount}">0</td>
+    </tr>
+    </tbody>
+</table>
+</div>
+
+<!-- Script to manage the pagenation of the edtied books table -->
+<script>
+    let currentPage = 1;
+    const rowsPerPage = 10;
+
+    document.addEventListener("DOMContentLoaded", function () {
+        displayTable();
+        checkButtons();
+    });
+
+    function displayTable() {
+        const table = document.getElementById('editedbooks');
+        const rows = Array.from(table.getElementsByTagName('tr'));
+
+        rows.forEach((row, index) => {
+            if (index >= (currentPage - 1) * rowsPerPage && index < currentPage * rowsPerPage) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    function checkButtons() {
+        const table = document.getElementById('editedbooks');
+        const rows = table.getElementsByTagName('tr');
+        const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+        document.getElementById('prevPage').disabled = currentPage === 1;
+        document.getElementById('nextPage').disabled = currentPage === totalPages;
+    }
+
+    function nextPage() {
+        if (currentPage < Math.ceil(document.getElementById('editedbooks').getElementsByTagName('tr').length / rowsPerPage)) {
+            currentPage++;
+            displayTable();
+            checkButtons();
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            displayTable();
+            checkButtons();
+        }
+    }
+</script>
+</body>
+</html>

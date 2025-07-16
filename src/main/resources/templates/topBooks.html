@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html xmlns:th="http://www.thymeleaf.org">
+        <head>
+        <meta charset="UTF-8">
+        <title>Top Books</title>
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<h1>Top 10 Books</h1>
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Barcode</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Loans Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book, stat : ${books}">
+        <td th:text="${stat.index + 1}">1</td>
+        <td th:text="${book.barcode}">1234567890</td>
+        <td th:text="${book.title}">Some Book Title</td>
+        <td th:text="${book.author}">Author Name</td>
+        <td th:text="${book.bookCount}">100</td>
+    </tr>
+    </tbody>
+
+    </thead>
+</table>
+    <h2>Total Number of Books</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Total Books</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${bookCount}">0</td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>

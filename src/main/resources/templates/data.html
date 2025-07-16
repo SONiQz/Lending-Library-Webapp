@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trigger Data Copy</title>
+</head>
+<body>
+<!-- Some manual methods for pushing data about -->
+<h1>Trigger Data Copy</h1>
+<form id="triggerForm" action="/data/copy-to-staging" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <input type="submit" value="Copy Data to Staging">
+</form>
+
+<form id="statsForm" action="/data/daily-stats" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <input type="submit" value="Daily Stats Creation">
+</form>
+</body>
+</html>

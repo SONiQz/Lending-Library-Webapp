@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Statistics Form</title>
+</head>
+<body>
+<!-- Stats Date Selection Form -->
+<h1>Enter Date Range for Statistics</h1>
+<form action="#" th:action="@{/stats}" method="post">
+    <p>
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required>
+    </p>
+    <p>
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required>
+    </p>
+    <p>
+        <button type="submit">Get Statistics</button>
+    </p>
+</form>
+</body>
+</html>
